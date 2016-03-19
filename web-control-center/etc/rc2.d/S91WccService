@@ -1,0 +1,25 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          myscript
+# Required-Start:    $local_fs $remote_fs $network
+# Required-Stop:     $local_fs $remote_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO
+
+case "$1" in
+start)   echo -n "Start WCC services"
+   #/usr/bin/web-control-center/MyServ start
+   #/bin/su -s /bin/bash -c '/home/pi/start.sh' pi
+   /bin/su -s /bin/bash -c '/usr/bin/web-control-center/start.sh' pi
+   ;;
+stop)   echo -n "Stop WCC services"
+   /usr/bin/web-control-center/MyServ stop
+   ;;
+*)   echo "Usage: $0 start|stop"
+        exit 1
+        ;;
+esac
+exit 0

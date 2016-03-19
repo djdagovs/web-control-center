@@ -1,0 +1,97 @@
+<CMD_MAP_TABLE>
+
+<CMD_MAP>
+<NAME>cmd1</NAME>
+<CMD>/usr/bin/web-control-center/IsProcessExist MyServ</CMD>
+</CMD_MAP>
+<CMD_MAP>
+<NAME>start_mjs</NAME>
+<CMD>mjpg_streamer -i "input_uvc.so -y  -r QVGA -f 15" -o "output_http.so -w /home/pi/mjpg-streamer/mjpg-streamer/www" &amp;</CMD>
+</CMD_MAP>
+<CMD_MAP>
+<NAME>gpio_0</NAME>
+<CMD>gpio write 0 0</CMD>
+</CMD_MAP>
+<CMD_MAP>
+<NAME>gpio_1</NAME>
+<CMD>gpio write 0 1</CMD>
+</CMD_MAP>
+  
+<CMD_MAP>
+    <NAME>Rotate_0</NAME>
+    <CMD>echo 0=51 &gt; /dev/servoblaster</CMD>
+</CMD_MAP>
+    
+<CMD_MAP>
+    <NAME>Rotate_1</NAME>
+    <CMD>echo 0=61 &gt; /dev/servoblaster</CMD>
+</CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_2</NAME>
+        <CMD>echo 0=71 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_3</NAME>
+        <CMD>echo 0=81 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_4</NAME>
+        <CMD>echo 0=91 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_5</NAME>
+        <CMD>echo 0=100 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_6</NAME>
+        <CMD>echo 0=110 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_7</NAME>
+        <CMD>echo 0=120 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_8</NAME>
+        <CMD>echo 0=130 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_9</NAME>
+        <CMD>echo 0=141 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_10</NAME>
+        <CMD>echo 0=151 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_11</NAME>
+        <CMD>echo 0=161 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_12</NAME>
+        <CMD>echo 0=171 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_13</NAME>
+        <CMD>echo 0=181 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_14</NAME>
+        <CMD>echo 0=191 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_15</NAME>
+        <CMD>echo 0=201 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_16</NAME>
+        <CMD>echo 0=211 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_17</NAME>
+        <CMD>echo 0=220 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+    <CMD_MAP>
+        <NAME>Rotate_18</NAME>
+        <CMD>echo 0=220 &gt; /dev/servoblaster</CMD>
+    </CMD_MAP>
+</CMD_MAP_TABLE>

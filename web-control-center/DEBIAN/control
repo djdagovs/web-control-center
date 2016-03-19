@@ -1,0 +1,10 @@
+Package: web-control-center
+Version: 1.0-0
+Architecture: all
+Maintainer: Mio Chen <miochen1226@gmail.com>
+Installed-Size: 108
+Depends: libc6 (>= 2.13), dpkg (>= 1.15.4), apache2 | install-info
+Section: devel
+Priority: optional
+Homepage: http://www.facebook.com/mio.chen
+Description: Control Raspberry Pi via web.

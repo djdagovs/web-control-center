@@ -1,0 +1,2 @@
+sudo sed -i '/#WCC-begin/,/#WCC-end/d' /etc/apache2/sites-available/default
+sudo sed -i '/#WCC-begin/,/#WCC-end/d' /etc/sudoers

@@ -1,0 +1,30 @@
+sudo sed -i '$ a\#WCC-begin' /etc/apache2/sites-available/default
+sudo sed -i '$ a\Listen 1226' /etc/apache2/sites-available/default
+sudo sed -i '$ a\<VirtualHost *:1226>' /etc/apache2/sites-available/default
+sudo sed -i '$ a\        ServerAdmin webmaster@localhost' /etc/apache2/sites-available/default
+sudo sed -i '$ a\        DocumentRoot /var/web-control-center' /etc/apache2/sites-available/default
+sudo sed -i '$ a\</VirtualHost>' /etc/apache2/sites-available/default
+
+sudo sed -i '$ a\Listen 1227' /etc/apache2/sites-available/default
+sudo sed -i '$ a\<VirtualHost *:1227>' /etc/apache2/sites-available/default
+sudo sed -i '$ a\        ServerAdmin webmaster@localhost' /etc/apache2/sites-available/default
+sudo sed -i '$ a\        DocumentRoot /home/mio/web-control-center' /etc/apache2/sites-available/default
+sudo sed -i '$ a\</VirtualHost>' /etc/apache2/sites-available/default
+
+sudo sed -i '$ a\#WCC-end' /etc/apache2/sites-available/default
+
+sudo sed -i '$ a\#WCC-begin' /etc/sudoers
+sudo sed -i '$ a\www-data ALL=NOPASSWD: /usr/bin/web-control-center/IsProcessExist' /etc/sudoers
+sudo sed -i '$ a\www-data ALL=NOPASSWD: /usr/bin/web-control-center/KillProcess' /etc/sudoers
+sudo sed -i '$ a\www-data ALL=NOPASSWD: /usr/bin/web-control-center/MyServ' /etc/sudoers
+sudo sed -i '$ a\www-data ALL=NOPASSWD: /usr/bin/web-control-center/btscan' /etc/sudoers
+sudo sed -i '$ a\www-data ALL=NOPASSWD: /usr/bin/web-control-center/btconnect' /etc/sudoers
+sudo sed -i '$ a\www-data ALL=NOPASSWD: /usr/bin/web-control-center/getBTLinkKeys' /etc/sudoers
+
+sudo sed -i '$ a\www-data ALL=NOPASSWD: /usr/bin/bluez-simple-agent' /etc/sudoers
+sudo sed -i '$ a\www-data ALL=NOPASSWD: /usr/bin/bluez-test-device' /etc/sudoers
+
+sudo sed -i '$ a\#WCC-end' /etc/sudoers
+
+sudo service apache2 restart
+sudo nohup /usr/bin/web-control-center/MyServ start &

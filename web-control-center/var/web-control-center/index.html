@@ -1,0 +1,489 @@
+<html>
+
+<style>
+* {
+  padding: 0;
+  margin: 0;
+}
+.fit {
+  max-width: 100%;
+  max-height: 100%;
+}
+.center {
+  display: block;
+  margin: auto;
+}
+</style>
+
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<title>System Information</title>
+<script type="text/javascript" src="json.js"></script>
+<script language="Javascript">
+
+
+function timedRefresh(timeoutPeriod) {
+	//alert("1");
+	HideBTButton();
+	countdown();	
+	//timedRefresh(1000);
+}
+
+function countdown() {
+    // your code goes here
+
+    updatepage("Data init...");
+
+    var timerId = setInterval(function() {
+	xmlhttpGet('/api/index.php?cmd=IsProcessExist&param=MyServ');
+	CheckAuthed();
+	//CheckAuthed();
+    }, 1000);
+}
+
+
+
+function xmlhttpGet(strURL) {
+    var xmlHttpReq = false;
+    var self = this;
+    // Mozilla/Safari
+    if (window.XMLHttpRequest) {
+        self.xmlHttpReq = new XMLHttpRequest();
+    }
+    // IE
+    else if (window.ActiveXObject) {
+        self.xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    //alert(strURL);
+    self.xmlHttpReq.open("GET", strURL, true);
+    self.xmlHttpReq.onreadystatechange = function() {
+        if (self.xmlHttpReq.readyState == 4) {
+            if (self.xmlHttpReq.status==200)
+	    {
+	      var json = self.xmlHttpReq.responseText;
+		var a = "<Result>1</Result>"; 	
+		//var b = "<Result>1</Result>";
+                //var ret = new String(json);
+		//ret = ret+"123";
+		//alert(a==b);
+		//alert(ret);
+		var strStatus = "";
+	      if(json.search(a)>=0)
+              	strStatus = "Server status:<font color='blue'>On</font>";
+		else
+		strStatus = "Server status:<font color='red'>Off</font>";
+		var today = new Date()
+	var today_year = today.getYear()+1900;
+	var today_month = today.getMonth();
+	var today_date = today.getDate();
+	var today_day = today.getDay();
+	var today_hour = today.getHours();
+	var today_minute = today.getMinutes();
+	var today_seconds = today.getSeconds();
+
+              updatepage(strStatus+"<br>"+today_year+"/"+today_month+"/"+today_date+" "+today_hour+":"+today_minute+":"+today_seconds);
+		
+	
+ 	    }
+        }
+    }
+    self.xmlHttpReq.send();
+}
+
+function updatepage(textStatus)
+{
+       document.getElementById("status_area").innerHTML = textStatus;
+}
+
+
+function CleanBTInfo()
+{
+       document.getElementById("bt_info_status_area").innerHTML = "";
+}
+
+function HideBTButton()
+{
+       document.getElementById("btn_auth").style.visibility='hidden';
+       document.getElementById("btn_unauth").style.visibility='hidden';
+}
+
+function AddPairButton()
+{
+       document.getElementById("btn_auth").style.visibility='visible';
+       document.getElementById("btn_unauth").style.visibility='hidden';
+}
+
+function AddUnPairButton()
+{
+       document.getElementById("btn_auth").style.visibility='hidden';
+       document.getElementById("btn_unauth").style.visibility='visible';
+}
+
+
+function PrintDevices(xml)
+{
+	g_SelDev_id="";
+	//alert(xml);
+	var strDevices="";
+	  strDevices += "<ol id='selectable'>";
+	
+	//BTAuth
+	var count = 0;
+	$(xml).find('device').each(function(){
+                    $(this).find("name").each(function(){
+                        var parent=$(this).parent();
+			var addr=parent.find("addr").text();
+                        var name = $(this).text();
+			strDevices+="<li auth=0 width='100' class='ui-widget-content' id='"+addr+"'>"+name+"</li>";
+			count++;
+                    });
+                });
+
+	if(count==0)
+		strDevices+="<li auth=0 id='eL' width='100' class='ui-widget-content'>Not found any device</li>";
+	strDevices+="</ol>";
+        $('#bt_area').html(strDevices);
+	$( "#selectable" ).selectable(
+	{
+	      stop: function() {
+        	var result = $( "#select-result" ).empty();
+ 	       $( ".ui-selected", this ).each(function() {
+        	  var index = $( "#selectable li" ).index( this );
+        	  result.append( " #" + ( index + 1 ) );
+			g_SelDev_id = this.id;
+		if(this.auth==0)
+			SetBTInfoTitle(this.id+"(Not Pair)");
+		else
+			SetBTInfoTitle(this.id+"(Paired)");
+        });
+      }
+    });
+
+        //document.getElementById("bt_area").innerHTML = strDevices;
+}
+
+function BTAuth(bt_id)
+{
+	alert(bt_id);
+//http://localhost:1227/Remote/?cmd=BTAuth@60:FA:CD:41:0B:BC
+}
+function updatebtpage(textStatus)
+{
+	document.getElementById("bt_area").innerHTML = textStatus; 
+}
+
+function updateBTInfo(device_id)
+{
+	ShowInfoLoading(true);
+}
+
+</script>
+
+<script type="text/javascript">
+
+var imageNr = 0; // Serial number of current image
+var finished = new Array(); // References to img objects which have finished downloading
+var paused = false;
+
+
+
+</script>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" language="JavaScript">
+
+</script>
+
+<link rel="stylesheet" href="jquery-ui-1.10.3/themes/base/jquery.ui.all.css" />
+<script src="jquery-ui-1.10.3/jquery-1.9.1.js"></script>
+<script src="jquery-ui-1.10.3/ui/jquery-ui.js"></script>
+<link rel="stylesheet" href="jquery-ui-1.10.3/demos/demo.css" />
+<script src="jquery-ui-1.10.3/ui/jquery.ui.core.js"></script>
+	<script src="jquery-ui-1.10.3/ui/jquery.ui.widget.js"></script>
+	<script src="jquery-ui-1.10.3/ui/jquery.ui.mouse.js"></script>
+	<script src="jquery-ui-1.10.3/ui/jquery.ui.selectable.js"></script>
+<script>
+ var g_SelDev_id="";
+ function ShowLoading(bShow)
+  {
+        if(bShow==true)
+		document.getElementById("loading_img").style.visibility='visible';
+	else
+		document.getElementById("loading_img").style.visibility='hidden';
+  }
+
+function CheckAuthed()
+{
+    //alert("CheckAuthed");
+    var strURL ="/api/?cmd=getBTLinkKeys";
+    var xmlHttpReqAU = false;
+    var selfAU = this;
+    // Mozilla/Safari
+    if (window.XMLHttpRequest) {
+        selfAU.xmlHttpReqAU = new XMLHttpRequest();
+    }
+    // IE
+    else if (window.ActiveXObject) {
+        selfAU.xmlHttpReqAU = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    //alert(strURL);
+    selfAU.xmlHttpReqAU.open("GET", strURL, true);
+    selfAU.xmlHttpReqAU.onreadystatechange = function() {
+        if (selfAU.xmlHttpReqAU.readyState == 4) {
+            if (selfAU.xmlHttpReqAU.status==200)
+	    {
+	      var json = selfAU.xmlHttpReqAU.responseText;
+	      	CheckAllDeviceAuth(json);
+	
+ 	    }
+        }
+    }
+    selfAU.xmlHttpReqAU.send();
+}
+
+
+function CheckAllDeviceAuth(linkkey)
+{
+//	alert(linkkey);
+        if(g_SelDev_id!="")
+        {	
+		var nPosSel = linkkey.indexOf(g_SelDev_id);
+		if(nPosSel>=0)
+		{
+			SetBTInfoTitle(g_SelDev_id+"(Paired)");
+			AddUnPairButton();
+  			
+		}
+	        else
+		{
+			SetBTInfoTitle(g_SelDev_id+"(Not Pair)");
+			AddPairButton();
+		}
+	}
+	$('#selectable li').each(function() {
+
+
+	var nPos = linkkey.indexOf(this.id);
+	if(nPos>=0)
+		this.auth=1;
+        else
+		this.auth=0;
+	});
+
+	$( "#selectable" ).selectable(
+	{
+	      stop: function() {
+        	var result = $( "#select-result" ).empty();
+ 	       $( ".ui-selected", this ).each(function() {
+        	  var index = $( "#selectable li" ).index( this );
+        	  result.append( " #" + ( index + 1 ) );
+   		g_SelDev_id = this.id;
+		if(this.auth==0)
+		{
+			SetBTInfoTitle(this.id+"(Not Pair)");
+			AddPairButton();
+		}
+		else
+		{
+			SetBTInfoTitle(this.id+"(Paired)");
+			AddUnPairButton();
+		}
+        });
+      }
+    });
+
+}
+
+function SetBTInfoTitle(strTitle)
+  {
+	document.getElementById("bt-title").innerHTML=strTitle;
+  }
+function ShowInfoLoading(bShow)
+  {
+        if(bShow==true)
+		document.getElementById("loading_info_img").style.visibility='visible';
+	else
+		document.getElementById("loading_info_img").style.visibility='hidden';
+  }
+
+
+</script>
+
+<script>
+
+  function xmlhttpGetBT() 
+{
+    var strURL='/bt/index.php?cmd=IsProcessExist&param=MyServ';
+    //alert(strURL);
+
+    //alert("1");
+    //updatebtpage("");
+    //alert("2");
+    ShowLoading(true);
+
+    //alert("3");
+    //CleanBTInfo();
+    //alert("4");
+    SetBTInfoTitle("");
+    //alert("5");
+    var xmlHttpReqBT = false;
+    var self = this;
+    // Mozilla/Safari
+    if (window.XMLHttpRequest) {
+        self.xmlHttpReqBT = new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {
+        self.xmlHttpReqBT = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    self.xmlHttpReqBT.open("GET", strURL, true);
+    self.xmlHttpReqBT.onreadystatechange = function() {
+        if (self.xmlHttpReqBT.readyState == 4) {
+            if (self.xmlHttpReqBT.status==200)
+	    {
+              ShowLoading(false);
+	      var jsonBT = self.xmlHttpReqBT.responseText;
+		//updatebtpage(jsonBT);
+		//alert(jsonBT);
+		PrintDevices(jsonBT);
+		CheckAuthed();
+ 	    }
+        }
+    }
+    //alert("2");
+    self.xmlHttpReqBT.send();
+}
+  
+  function DoAuth(dev_id)
+{
+    var strURL='Remote/?cmd=BTAuth@'+dev_id;
+    //ShowLoading(true);
+
+    //SetBTInfoTitle("");
+    var xmlHttpReqBTAuth = false;
+    var selfAU = this;
+    if (window.XMLHttpRequest) {
+        selfAU.xmlHttpReqBTAuth = new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {
+        selfAU.xmlHttpReqBTAuth = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    selfAU.xmlHttpReqBTAuth.open("GET", strURL, true);
+    selfAU.xmlHttpReqBTAuth.onreadystatechange = function() {
+        if (selfAU.xmlHttpReqBTAuth.readyState == 4) {
+            if (selfAU.xmlHttpReqBT.status==200)
+	    {
+              
+ 	    }
+        }
+    }
+    selfAU.xmlHttpReqBTAuth.send();
+
+}
+
+function DoUnAuth(dev_id)
+{
+    var strURL='Remote/?cmd=BTUnAuth@'+dev_id;
+    //ShowLoading(true);
+
+    //SetBTInfoTitle("");
+    var xmlHttpReqBTAuth = false;
+    var selfAU = this;
+    if (window.XMLHttpRequest) {
+        selfAU.xmlHttpReqBTAuth = new XMLHttpRequest();
+    }
+    else if (window.ActiveXObject) {
+        selfAU.xmlHttpReqBTAuth = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    selfAU.xmlHttpReqBTAuth.open("GET", strURL, true);
+    selfAU.xmlHttpReqBTAuth.onreadystatechange = function() {
+        if (selfAU.xmlHttpReqBTAuth.readyState == 4) {
+            if (selfAU.xmlHttpReqBT.status==200)
+	    {
+              
+ 	    }
+        }
+    }
+    selfAU.xmlHttpReqBTAuth.send();
+
+}
+
+
+  $(function() {
+    $( "input[type=submit], a, button" )
+      .button()
+      .click(function( event ) {
+	
+        event.preventDefault();
+	
+	if(this.id == 'btn_auth')
+	{
+		DoAuth(g_SelDev_id);
+		return;
+	}
+	if(this.id == 'btn_unauth')
+	{
+		DoUnAuth(g_SelDev_id);
+		return;
+	}
+	
+        ShowLoading(true);	
+        //alert("xmlhttpGetBT");
+        xmlhttpGetBT();
+	//alert("xmlhttpGetBT ok");
+//        xmlhttpGetBT('/api/index.php?cmd=IsProcessExist&param=MyServ');
+      });
+  });
+  </script>
+
+<style>
+  #feedback { font-size: 1.4em; }
+  #selectable .ui-selecting { background: #FECA40; }
+  #selectable .ui-selected { background: #F39814; color: white; }
+  #selectable { list-style-type: none; margin: 0; padding: 0; text-align: center; width: 100%; }
+  #selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
+  </style>
+  <script>
+/*
+  $(function() {
+    $( "#selectable" ).selectable({
+      stop: function() {
+        var result = $( "#select-result" ).empty();
+        $( ".ui-selected", this ).each(function() {
+          var index = $( "#selectable li" ).index( this );
+          result.append( " #" + ( index + 1 ) );
+        });
+      }
+    });
+  });
+	*/
+  </script>
+	
+</head>
+<body onload="JavaScript:timedRefresh(1000);">
+
+<div id="status_area" >DataArea
+</div>
+
+
+
+<table width="500" height="50" align="center" valign="center">
+<td>
+<button>Scan</button><img id="loading_img" align="middle" src="/image/loading.gif" width=30 height=30 style="visibility:hidden"/>
+</td>
+</table>
+<table width="600">
+<td>
+<div id="bt_area" style="float:left; width: 300px; height: 400px; color: navy; background-color: white; border: 2px solid black;"></div>
+</td>
+<td>
+<div id="bt_info_title_area" valign="center" style="vertical-align:middle; text-align:center;float:left; width: 300px; height: 50px; color: navy; background-color: pink; border: 2px solid black;"><TEXT id="bt-title"></TEXT></div>
+<div id="bt_info_status_area" valign="center" style="vertical-align:middle; text-align:center;float:left; width: 300px; height: 50px; color: navy; background-color: white; border: 2px solid black;"><img id="loading_info_img" align="middle" src="/image/loading.gif" width=30 height=30/ style="visibility:hidden">
+<button id='btn_auth'>Pair</button>
+<button id='btn_unauth'>UnPair</button>
+</div>
+<div id="bt_info_area" style="float:left; width: 300px; height: 296px; color: navy; background-color: white; border: 2px solid black;"></div>
+
+</td>
+</table>
+</body>
+</html>
