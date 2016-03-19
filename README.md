@@ -76,6 +76,8 @@ $ http://your_ip:1226/api/index.php?cmd=CMD_NAME&param=PARAM'
 ```
 
 ### Buind-In DEMO
+[![ScreenShot](http://img.youtube.com/vi/OR62ChTsaZ4/0.jpg)](http://youtu.be/OR62ChTsaZ4)
+
 ```sh
 $ http://your_ip:1226/index.html'
 ```
