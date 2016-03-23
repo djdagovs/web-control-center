@@ -76,12 +76,23 @@ $ http://your_ip:1226/api/index.php?cmd=CMD_NAME&param=PARAM'
 ```
 
 ### Buind-In DEMO
+- scan bluetooth
 [![ScreenShot](http://img.youtube.com/vi/OR62ChTsaZ4/0.jpg)](http://youtu.be/OR62ChTsaZ4)
 
 ```sh
 $ http://your_ip:1226/index.html'
 ```
 - Use web page to control USB Bluetooth dungle to scan device and show result
+
+### Relatived DEMO
+- rotate webcam
+[![ScreenShot](http://img.youtube.com/vi/EoRK8iAK4Yg/0.jpg)](http://youtu.be/EoRK8iAK4Yg)
+
+- turn on the light
+[![ScreenShot](http://img.youtube.com/vi/nvJViSNanoc/0.jpg)](http://youtu.be/nvJViSNanoc)
+
+
+
 
 ### Source code guide 
 - [MyServ] A daemon to handle the command from php and exec target action defined in cmd_map.xml. 
@@ -97,6 +108,8 @@ Get pair list for bluetooth device
 Check if process is running
 - [KillProcess]--
 Stop a process
+
+
 
 
 
